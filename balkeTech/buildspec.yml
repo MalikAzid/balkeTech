@@ -5,7 +5,7 @@ phases:
   install:
     runtime-versions:
       dotnet: 5.0
-      commands:
+    commands:
       - echo "Installing dependencies..."
 
   pre_build:
