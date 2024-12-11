@@ -1,0 +1,31 @@
+﻿# AWS CodeBuild spec to build an Elastic Beanstalk artifact for AWS CodePipeline to deploy
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      dotnet: 5.0
+      commands:
+      - echo "Installing dependencies..."
+
+  pre_build:
+    commands:
+      - echo "Restore dependencies..."
+      - echo "CURRENT DIR `pwd`"
+      - dotnet restore
+
+  build:
+    commands:
+      - echo "bulding project"
+      - dotnet build --configuration Release --no--restore
+
+  post_build:
+    commands:
+      - echo "Packaging Project"
+      - dotnet publish --configuration Release --output ./
+
+artifacts:
+  files:
+    - ./**/*
+discard-paths: no
+base-directory: './'
